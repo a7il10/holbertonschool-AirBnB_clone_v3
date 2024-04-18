@@ -12,11 +12,13 @@ app = Flask(__name__)
 
 @app_views.route('/status', methods=['GET'], strict_slashes=False)
 def get_status():
+    """Returns a JSON response"""
     return jsonify({'status': 'OK'})
 
 
-@app_views.route('/stats', methods=['GET'])
+@app_views.route('/stats', methods=['GET'], strict_slashes=False)
 def counter():
+    """Retrieves the number of each objects by type"""
     stats = {
         'amenities': storage.count('Amenity'),
         'cities': storage.count('City'),
