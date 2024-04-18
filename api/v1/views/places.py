@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" objects that handle all default RestFul API actions for Places """
+"""Objects that handle all default RestFul API actions for Places"""
 from models.state import State
 from models.city import City
 from models.place import Place
@@ -71,7 +71,7 @@ def put_place(place_id):
     place = storage.get(Place, place_id)
     if not place:
         abort(404)
-    data = request.get_json()
+    data = request.get_json(force=True)
     if not data:
         abort(400, description="Not a JSON")
     ignore = ['id', 'user_id', 'city_id', 'created_at', 'updated_at']
