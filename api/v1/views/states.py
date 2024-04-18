@@ -57,7 +57,7 @@ def put_state(state_id):
     state = storage.get(State, state_id)
     if not state:
         abort(404)
-    if not request.get_json():
+    if not request.get_json(force=True):
         abort(400, description="Not a JSON")
     ignore = ['id', 'created_at', 'updated_at']
     data = request.get_json()
