@@ -25,6 +25,7 @@ class TestDBStorage(unittest.TestCase):
         """DBStorage testing setup.
         """
         models.storage = DBStorage()
+        Base = models.base_model.Base
 
         cls.storage = models.storage
         Base.metadata.create_all(cls.storage._DBStorage__engine)
