@@ -16,7 +16,6 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 from sqlalchemy.engine.base import Engine
 
-Base = models.base_model.Base
 
 class TestDBStorage(unittest.TestCase):
     """Unittests for testing the DBStorage class."""
