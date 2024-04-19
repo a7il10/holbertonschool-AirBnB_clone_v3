@@ -26,7 +26,7 @@ class TestDBStorage(unittest.TestCase):
     def setUpClass(cls):
         """DBStorage testing setup."""
 
-        if type(models.storage) == DBStorage:
+        if type(models.storage) is DBStorage:
             cls.storage = DBStorage()
             Base.metadata.create_all(cls.storage._DBStorage__engine)
             Session = sessionmaker(bind=cls.storage._DBStorage__engine)
@@ -51,7 +51,7 @@ class TestDBStorage(unittest.TestCase):
     def tearDownClass(cls):
         """DBStorage testing teardown."""
 
-        if type(models.storage) == DBStorage:
+        if type(models.storage) is DBStorage:
             cls.storage._DBStorage__session.delete(cls.state)
             cls.storage._DBStorage__session.delete(cls.city)
             cls.storage._DBStorage__session.delete(cls.user)
@@ -82,7 +82,7 @@ class TestDBStorage(unittest.TestCase):
         self.assertIsNotNone(DBStorage.delete.__doc__)
         self.assertIsNotNone(DBStorage.reload.__doc__)
 
-    @unittest.skipIf(type(models.storage) == FileStorage,
+    @unittest.skipIf(type(models.storage) is FileStorage,
                      "Testing FileStorage")
     def test_attributes(self):
         """Check for attributes."""
@@ -98,13 +98,13 @@ class TestDBStorage(unittest.TestCase):
         self.assertTrue(hasattr(DBStorage, "delete"))
         self.assertTrue(hasattr(DBStorage, "reload"))
 
-    @unittest.skipIf(type(models.storage) == FileStorage,
+    @unittest.skipIf(type(models.storage) is FileStorage,
                      "Testing FileStorage")
     def test_init(self):
         """Test initialization."""
         self.assertTrue(isinstance(self.storage, DBStorage))
 
-    @unittest.skipIf(type(models.storage) == FileStorage,
+    @unittest.skipIf(type(models.storage) is FileStorage,
                      "Testing FileStorage")
     def test_all(self):
         """Test default all method."""
@@ -112,7 +112,7 @@ class TestDBStorage(unittest.TestCase):
         self.assertEqual(type(obj), dict)
         self.assertEqual(len(obj), 6)
 
-    @unittest.skipIf(type(models.storage) == FileStorage,
+    @unittest.skipIf(type(models.storage) is FileStorage,
                      "Testing FileStorage")
     def test_all_cls(self):
         """Test all method with specified cls."""
@@ -121,7 +121,7 @@ class TestDBStorage(unittest.TestCase):
         self.assertEqual(len(obj), 1)
         self.assertEqual(self.state, list(obj.values())[0])
 
-    @unittest.skipIf(type(models.storage) == FileStorage,
+    @unittest.skipIf(type(models.storage) is FileStorage,
                      "Testing FileStorage")
     def test_new(self):
         """Test new method."""
@@ -130,7 +130,7 @@ class TestDBStorage(unittest.TestCase):
         store = list(self.storage._DBStorage__session.new)
         self.assertIn(st, store)
 
-    @unittest.skipIf(type(models.storage) == FileStorage,
+    @unittest.skipIf(type(models.storage) is FileStorage,
                      "Testing FileStorage")
     def test_save(self):
         """Test save method."""
@@ -147,7 +147,7 @@ class TestDBStorage(unittest.TestCase):
         self.assertEqual(st.id, query[0][0])
         cursor.close()
 
-    @unittest.skipIf(type(models.storage) == FileStorage,
+    @unittest.skipIf(type(models.storage) is FileStorage,
                      "Testing FileStorage")
     def test_delete(self):
         """Test delete method."""
@@ -157,7 +157,7 @@ class TestDBStorage(unittest.TestCase):
         self.storage.delete(st)
         self.assertIn(st, list(self.storage._DBStorage__session.deleted))
 
-    @unittest.skipIf(type(models.storage) == FileStorage,
+    @unittest.skipIf(type(models.storage) is FileStorage,
                      "Testing FileStorage")
     def test_delete_none(self):
         """Test delete method with None."""
@@ -166,7 +166,7 @@ class TestDBStorage(unittest.TestCase):
         except Exception:
             self.fail
 
-    @unittest.skipIf(type(models.storage) == FileStorage,
+    @unittest.skipIf(type(models.storage) is FileStorage,
                      "Testing FileStorage")
     def test_reload(self):
         """Test reload method."""
